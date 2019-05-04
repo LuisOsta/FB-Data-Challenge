@@ -3,17 +3,23 @@ import pandas as pd
 
 df = pd.read_csv("sf_business_cleaned.csv")
 
-zipcodes = df["zipcode"].unique()
+zipcodes = df["naics_code"].unique()
 
 
-def zipcode_counter(zipcode):
-    return df[df["zipcode"] == zipcode]["naics_code"].value_counts().iloc[:10]
+def naics_code_counter(naics_code):
+    return df[df["naics_code"] == naics_code]["zipcode"].value_counts().iloc[:10]
 
 
-for val in zipcodes:
-    businesses = zipcode_counter(val)
-    if(len(businesses) < 5):
-        continue
-    else:
-        print("\n\nZipcode : ", val)
-        print(zipcode_counter(val))
+def outputBusinessByZipcode():
+    for val in zipcodes:
+        businesses = naics_code_counter(val)
+
+        if(len(businesses) < 10):
+            continue
+        else:
+            businesses.to_csv('businessByZipcodes.csv', mode='a', header=[val])
+            print("\n\nnaics_code : ", val)
+            print(businesses)
+
+
+outputBusinessByZipcode()
