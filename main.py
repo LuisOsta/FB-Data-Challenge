@@ -3,7 +3,7 @@ import pandas as pd
 
 df = pd.read_csv("sf_business_cleaned.csv")
 
-zipcodes = df["naics_code"].unique()
+naics_codes = df["naics_code"].unique()
 
 
 def naics_code_counter(naics_code):
@@ -11,15 +11,16 @@ def naics_code_counter(naics_code):
 
 
 def outputBusinessByZipcode():
-    for val in zipcodes:
-        businesses = naics_code_counter(val)
+    for val in naics_codes:
+        businessZipcodes = naics_code_counter(val)
 
-        if(len(businesses) < 10):
+        if(len(businessZipcodes) < 5):
             continue
         else:
-            businesses.to_csv('businessByZipcodes.csv', mode='a', header=[val])
+            businessZipcodes.to_csv(
+                'businessBynaics_codes.csv', mode='a', header=[val])
             print("\n\nnaics_code : ", val)
-            print(businesses)
+            print(businessZipcodes)
 
 
 outputBusinessByZipcode()

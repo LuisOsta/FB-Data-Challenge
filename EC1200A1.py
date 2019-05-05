@@ -5,5 +5,5 @@ columnString = "GEOTYPE|ST|COUNTY|PLACE|CONSCITY|CSA|MSA|MD|CENREG|PLANREG|GEO_C
 
 columns = columnString.split("|")
 finDf = pd.read_csv("EC1200A1.dat", sep="|", skiprows=0,
-                    usecols=[*range(0, 31)], names=columns)
-print(finDf["COUNTY"].unique())
+                    usecols=[*range(0, 41)], names=columns)
+print(finDf[finDf["ST"] == "04"]["NAICS2012"])
